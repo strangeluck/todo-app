@@ -1,8 +1,30 @@
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f4f7fb;
-  color: #1b1f2c;
+  --bg-page: #f4f7fb;
+  --bg-card: #ffffff;
+  --text-primary: #1b1f2c;
+  --text-secondary: #6b7280;
+  --border-color: #dfe3ee;
+  --bg-input: #f8fbff;
+  --border-input: #e6ecf9;
+  --shadow: rgba(35, 49, 80, 0.08);
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --delete-color: #ef4444;
+  --delete-hover: #dc2626;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-page: #1b1f2c;
+  --bg-card: #2d3142;
+  --text-primary: #f4f7fb;
+  --text-secondary: #9ca3af;
+  --border-color: #404858;
+  --bg-input: #1f2335;
+  --border-input: #3a4152;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -15,19 +37,72 @@ body {
   display: grid;
   place-items: center;
   padding: 2rem;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .app-shell {
   width: min(560px, 100%);
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 24px;
   padding: 2rem;
-  box-shadow: 0 24px 80px rgba(35, 49, 80, 0.08);
+  box-shadow: 0 24px 80px var(--shadow);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 h1 {
-  margin: 0 0 1.5rem;
+  margin: 0;
   font-size: clamp(2rem, 2.5vw, 2.5rem);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--border-color);
+}
+
+.theme-toggle svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sun-icon {
+  position: absolute;
+  opacity: 1;
+}
+
+.moon-icon {
+  position: absolute;
+  opacity: 0;
+}
+
+[data-theme="dark"] .sun-icon {
+  opacity: 0;
+}
+
+[data-theme="dark"] .moon-icon {
+  opacity: 1;
 }
 
 .todo-form {
@@ -40,16 +115,23 @@ h1 {
 #todo-input {
   width: 100%;
   padding: 0.95rem 1rem;
-  border: 1px solid #dfe3ee;
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   font-size: 1rem;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+#todo-input::placeholder {
+  color: var(--text-secondary);
 }
 
 .todo-form button {
   padding: 0.95rem 1.2rem;
   border: none;
   border-radius: 16px;
-  background: #3b82f6;
+  background: var(--primary-color);
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
@@ -57,7 +139,7 @@ h1 {
 }
 
 .todo-form button:hover {
-  background: #2563eb;
+  background: var(--primary-hover);
 }
 
 .todo-list {
@@ -75,8 +157,9 @@ h1 {
   gap: 1rem;
   padding: 1rem 1.15rem;
   border-radius: 16px;
-  background: #f8fbff;
-  border: 1px solid #e6ecf9;
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .todo-control {
@@ -89,22 +172,23 @@ h1 {
 .todo-checkbox {
   width: 1.1rem;
   height: 1.1rem;
-  accent-color: #3b82f6;
+  accent-color: var(--primary-color);
 }
 
 .todo-text {
   margin: 0;
   word-break: break-word;
+  color: var(--text-primary);
 }
 
 .todo-item.completed .todo-text {
   text-decoration: line-through;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .delete-button {
   border: none;
-  background: #ef4444;
+  background: var(--delete-color);
   color: #ffffff;
   padding: 0.7rem 0.95rem;
   border-radius: 12px;
@@ -113,11 +197,11 @@ h1 {
 }
 
 .delete-button:hover {
-  background: #dc2626;
+  background: var(--delete-hover);
 }
 
 .empty-state {
   margin: 0;
-  color: #6b7280;
+  color: var(--text-secondary);
   text-align: center;
 }

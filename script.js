@@ -50,6 +50,12 @@ function createTodoItem(text) {
 
   checkbox.addEventListener('change', () => {
     item.classList.toggle('completed', checkbox.checked);
+    if (checkbox.checked) {
+      item.style.animation = 'none';
+      setTimeout(() => {
+        item.style.animation = '';
+      }, 10);
+    }
   });
 
   const deleteButton = document.createElement('button');
@@ -57,8 +63,11 @@ function createTodoItem(text) {
   deleteButton.type = 'button';
   deleteButton.textContent = 'Delete';
   deleteButton.addEventListener('click', () => {
-    item.remove();
-    renderEmptyState();
+    item.style.animation = 'slideIn 0.3s ease-out reverse';
+    item.addEventListener('animationend', () => {
+      item.remove();
+      renderEmptyState();
+    }, { once: true });
   });
 
   todoControl.append(checkbox, label);
@@ -68,7 +77,7 @@ function createTodoItem(text) {
 
 function renderEmptyState() {
   if (list.children.length === 0) {
-    list.innerHTML = '<li class="todo-item empty-state">No todos yet. Add one above.</li>';
+    list.innerHTML = '<li class="todo-item empty-state">No tasks yet. Create one above! 🚀</li>';
   } else if (list.children.length === 1 && list.firstElementChild.classList.contains('empty-state')) {
     list.innerHTML = '';
   }

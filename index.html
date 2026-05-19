@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simple Todo App</title>
+  <title>Modern Todo App</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main class="app-shell">
     <div class="header">
-      <h1>Todo List</h1>
+      <h1>Tasks</h1>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -28,8 +28,14 @@
       </button>
     </div>
     <form id="todo-form" class="todo-form">
-      <input id="todo-input" type="text" placeholder="Add a new todo" aria-label="Todo input" />
-      <button type="submit">Add</button>
+      <input
+        id="todo-input"
+        type="text"
+        placeholder="Add a new task..."
+        aria-label="Todo input"
+        autocomplete="off"
+      />
+      <button type="submit" aria-label="Add todo">Add</button>
     </form>
     <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
   </main>
